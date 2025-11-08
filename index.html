@@ -1,241 +1,212 @@
-<!DOCTYPE html>
-<html lang="zh-Hans">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>布乖的个人主页</title>
-  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-  <meta name="keywords" content="布乖,Buguaifurry,福瑞,furry" />
-  <meta name="description" content="布乖的个人主页，展示我的作品、联系方式和动态，欢迎访问与交流。">
-  <link href="https://fonts.googleapis.com/css2?family=Product+Sans&display=swap" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    /* 页面加载前隐藏内容 */
-    body.preload {
-      visibility: hidden;
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CN布乖的导航页</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ios: { blue: '#007AFF', gray: '#F5F7FA', dark: '#1C1C1E' }
+          },
+          fontFamily: {
+            ios: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif']
+          }
+        }
+      }
     }
-
-    body {
-      font-family: 'Product Sans', sans-serif;
-      background: linear-gradient(135deg, #e0faff, #ffffff), url('p/bg.png') center center / cover no-repeat fixed;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      color: #1A1A1A;
-      transition: opacity 0.8s ease;
-    }
-
-    .container {
-      margin-top: 2rem;
-      padding: 2rem;
-      width: 90%;
-      max-width: 720px;
-      background: rgba(255,255,255,0.5);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      text-align: center;
-      animation: fadeInUp 1s ease-out;
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .avatar {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 1rem;
-    }
-
-    h1 { font-size: 2rem; margin-bottom: 1rem; }
-
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-
-    .buttons a,
-    .donate-button {
-      display: inline-block;
-      padding: 0.8rem 1.5rem;
-      background: linear-gradient(to right, #71f8fc, #a0fff8);
-      border-radius: 30px;
-      text-decoration: none;
-      color: black;
-      font-weight: bold;
-      font-size: 1.1rem;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      text-align: center;
-    }
-
-    .buttons a:hover,
-    .donate-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-    }
-
-    footer { margin: 2rem 0 1rem; font-size: 0.9rem; color: #000; text-align: center; }
-
-    /* 加载动画覆盖层 */
-    #loading {
-      position: fixed;
-      z-index: 9999;
-      background: #ffffff; /* 全白覆盖 */
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 1;
-      pointer-events: all;
-      transition: opacity 0.6s ease;
-    }
-
-    .loader {
-      border: 6px solid #e0faff;
-      border-top: 6px solid #71f8fc;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* 登录弹窗 */
-    .modal { display: none; position: fixed; z-index: 99; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); opacity: 0; transition: opacity 0.5s ease-in-out; }
-    .modal.active { display: block; opacity: 1; }
-    .modal-content {
-      background: rgba(255,255,255,0.9);
-      backdrop-filter: blur(10px);
-      margin: 15% auto;
-      padding: 2rem;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-      animation: modalPop 0.5s ease-in-out;
-    }
-    @keyframes modalPop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    .modal-content p { font-size: 1rem; margin-bottom: 1.2rem; }
-    .login-button { background: linear-gradient(to right, #71f8fc, #a0fff8); color: black; border: none; padding: 0.8rem 1.5rem; font-size: 1rem; border-radius: 30px; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .login-button:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
-    .close { float: right; font-size: 1.5rem; cursor: pointer; color: #1A1A1A; }
-
-    @media (max-width: 480px) {
-      h1 { font-size: 1.8rem; }
-      .buttons a, .donate-button { font-size: 1rem; padding: 0.8rem 1.2rem; }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .glass {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+      }
+      .glass-dark {
+        background: rgba(28, 28, 30, 0.25);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+      }
+      .btn-hover { transition: all 0.3s ease; }
+      .btn-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+      .icon-bg {
+        background: rgba(255,255,255,0.3);
+        transition: all 0.3s ease;
+      }
+      .icon-bg:hover { background: rgba(255,255,255,0.5); }
     }
   </style>
 </head>
-<body class="preload">
-  <!-- 加载动画 -->
-  <div id="loading">
-    <div class="loader"></div>
+
+<body class="font-ios min-h-screen flex flex-col transition-colors duration-500 text-white" id="app-body">
+  <!-- 背景 -->
+  <div class="fixed inset-0 z-0 overflow-hidden">
+    <img id="bg-image" src="https://ts1.tc.mm.bing.net/th/id/OIP-C.g0Z33n-yxLFGiRgQEd7cSwHaQD?dpr=3.5&pid=ImgDetMain&o=7&rm=3"
+         alt="背景图" class="w-full h-full object-cover transition-opacity duration-1000 opacity-100">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/10 to-black/40 z-10"></div>
   </div>
 
-  <div class="container">
-    <img src="p/tx.jpeg" alt="头像" class="avatar">
-    <h1>你好，我是布乖</h1>
-    <div class="buttons">
-      <a href="shoushe.html">兽设介绍</a>
-      <a href="banquan.html">版权信息</a>
-      <a href="guanzhu.html">关注我们</a>
-      <a href="lianxi.html">联系我们</a>
-      <a href="comment.html">评论留言</a>
-      <a href="fans.html">实时粉丝数</a>
-      <a href="game.html">小游戏</a>
-      <button id="donateBtn" class="donate-button" type="button">捐赠支持</button>
+  <!-- 内容 -->
+  <div class="relative z-20 container mx-auto px-4 py-8 md:py-14">
+    <!-- 顶部标题 + 控制 -->
+    <div class="flex justify-between items-center mb-10">
+      <div class="glass rounded-2xl px-6 py-3 flex items-center">
+        <i class="fa fa-compass text-ios-blue text-xl mr-3"></i>
+        <h1 class="text-2xl font-semibold">布乖的主页</h1>
+      </div>
+      <div class="flex gap-4">
+        <label for="bg-upload" class="glass rounded-full w-12 h-12 flex items-center justify-center cursor-pointer btn-hover">
+          <i class="fa fa-image text-white text-xl"></i>
+          <input type="file" id="bg-upload" accept="image/jpeg,image/png" class="hidden">
+        </label>
+        <button id="theme-toggle" class="glass rounded-full w-12 h-12 flex items-center justify-center btn-hover">
+          <i class="fa fa-moon-o text-white text-xl" id="theme-icon"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- 个人简介卡 -->
+    <div class="glass rounded-3xl p-6 md:p-10 flex flex-col md:flex-row items-center gap-8 mb-12">
+      <div class="w-40 h-40 md:w-48 md:h-48 rounded-2xl overflow-hidden border-4 border-white/20">
+        <img src="IMG_20251109_001309.html" alt="布乖头像" class="w-full h-full object-cover">
+      </div>
+      <div class="text-white/90">
+        <h2 class="text-3xl font-bold mb-2">布乖Furry</h2>
+        <p class="text-white/70 mb-4">优先内容创作者 · 2024快手百大网红</p>
+        <p class="leading-relaxed mb-4">你好！我是 <strong>布乖</strong>，一名热爱分享兽圈文化与创意短视频的内容创作者。我致力于将外网优质视频带入国内平台，让更多人了解优秀的创作与剪辑风格。</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="glass px-3 py-1 rounded-full text-sm">HTML & CSS</span>
+          <span class="glass px-3 py-1 rounded-full text-sm">视频创作</span>
+          <span class="glass px-3 py-1 rounded-full text-sm">快手内容</span>
+          <span class="glass px-3 py-1 rounded-full text-sm">剪辑与设计</span>
+        </div>
+        <p class="text-white/70">📍 广东，中国 | 📧 buguaiwenjie@outlook.com</p>
+      </div>
+    </div>
+
+    <!-- 搜索框 -->
+    <div class="glass rounded-3xl px-6 py-4 mb-12 max-w-2xl mx-auto">
+      <div class="flex items-center">
+        <i class="fa fa-search text-white/70 text-xl mr-4"></i>
+        <input type="text" placeholder="搜索网站或内容..."
+               class="bg-transparent border-none outline-none text-white text-lg w-full placeholder-white/60">
+      </div>
+    </div>
+
+    <!-- 导航卡片区 -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+      <a href="https://bing.com" target="_blank" class="glass rounded-2xl p-6 flex flex-col items-center text-center btn-hover">
+        <div class="icon-bg rounded-full w-16 h-12 md:w-20 md:h-16 flex items-center justify-center mb-4">
+          <i class="fa fa-search text-ios-blue text-3xl"></i>
+        </div>
+        <h3 class="text-white font-medium text-lg">必应</h3>
+        <p class="text-white/60 text-sm mt-1">搜索引擎</p>
+      </a>
+
+      <a href="https://v.kuaishou.com/K8UDIa1w" target="_blank" class="glass rounded-2xl p-6 flex flex-col items-center text-center btn-hover">
+        <div class="icon-bg rounded-full w-16 h-12 md:w-20 md:h-16 flex items-center justify-center mb-4">
+          <i class="fa fa-play-circle text-pink-500 text-3xl"></i>
+        </div>
+        <h3 class="text-white font-medium text-lg">快手短视频</h3>
+        <p class="text-white/60 text-sm mt-1">视频平台</p>
+      </a>
+
+      <a href="https://new.502fakw.com/shop/DH7LCLBO" target="_blank" class="glass rounded-2xl p-6 flex flex-col items-center text-center btn-hover">
+        <div class="icon-bg rounded-full w-16 h-12 md:w-20 md:h-16 flex items-center justify-center mb-4">
+          <i class="fa fa-shopping-bag text-orange-400 text-3xl"></i>
+        </div>
+        <h3 class="text-white font-medium text-lg">布乖的店铺</h3>
+        <p class="text-white/60 text-sm mt-1">网上购物</p>
+      </a>
+
+      <a href="https://music.163.com" target="_blank" class="glass rounded-2xl p-6 flex flex-col items-center text-center btn-hover">
+        <div class="icon-bg rounded-full w-16 h-12 md:w-20 md:h-16 flex items-center justify-center mb-4">
+          <i class="fa fa-music text-red-400 text-3xl"></i>
+        </div>
+        <h3 class="text-white font-medium text-lg">网易云音乐</h3>
+        <p class="text-white/60 text-sm mt-1">音乐播放</p>
+      </a>
+
+      <a href="https://www.zhihu.com" target="_blank" class="glass rounded-2xl p-6 flex flex-col items-center text-center btn-hover">
+        <div class="icon-bg rounded-full w-16 h-12 md:w-20 md:h-16 flex items-center justify-center mb-4">
+          <i class="fa fa-comment text-blue-300 text-3xl"></i>
+        </div>
+        <h3 class="text-white font-medium text-lg">知乎</h3>
+        <p class="text-white/60 text-sm mt-1">问答社区</p>
+      </a>
+
+      <a href="https://mail.qq.com" target="_blank" class="glass rounded-2xl p-6 flex flex-col items-center text-center btn-hover">
+        <div class="icon-bg rounded-full w-16 h-12 md:w-20 md:h-16 flex items-center justify-center mb-4">
+          <i class="fa fa-envelope text-blue-400 text-3xl"></i>
+        </div>
+        <h3 class="text-white font-medium text-lg">QQ邮箱</h3>
+        <p class="text-white/60 text-sm mt-1">邮件服务</p>
+      </a>
+
+      <a href="https://github.com" target="_blank" class="glass rounded-2xl p-6 flex flex-col items-center text-center btn-hover">
+        <div class="icon-bg rounded-full w-16 h-12 md:w-20 md:h-16 flex items-center justify-center mb-4">
+          <i class="fa fa-github text-white text-3xl"></i>
+        </div>
+        <h3 class="text-white font-medium text-lg">GitHub</h3>
+        <p class="text-white/60 text-sm mt-1">代码仓库</p>
+      </a>
+
+      <button class="glass rounded-2xl p-6 flex flex-col items-center justify-center text-center btn-hover border-2 border-dashed border-white/30">
+        <i class="fa fa-plus text-white text-3xl mb-2"></i>
+        <h3 class="text-white font-medium text-lg">添加新导航</h3>
+      </button>
+    </div>
+
+    <!-- 底部信息 -->
+    <div class="mt-16 text-center">
+      <p class="text-white/60 text-sm">布乖个人主页 © 2025</p>
     </div>
   </div>
 
-  <!-- 登录弹窗 -->
-  <div id="loginModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <p>您需要先登录后才能访问捐赠页面。</p>
-      <button id="loginRedirect" class="login-button">使用 GitHub 登录</button>
-    </div>
-  </div>
-
-  <footer>Copyright©️2024-2025布乖, All Rights Reserved.</footer>
-
-  <script type="module">
-    import { supabase } from './p/js/supabaseClient.js';
-
-    // 页面加载完成后显示内容
-    window.addEventListener('load', async () => {
-      // 获取用户登录状态
-      const { data } = await supabase.auth.getUser();
-      if (data?.user) {
-        localStorage.setItem("isLoggedIn", "true");
+  <!-- 脚本 -->
+  <script>
+    // 背景图替换
+    const bgUpload = document.getElementById('bg-upload');
+    const bgImage = document.getElementById('bg-image');
+    bgUpload.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          bgImage.style.opacity = 0;
+          setTimeout(() => {
+            bgImage.src = event.target.result;
+            bgImage.style.opacity = 1;
+          }, 500);
+        };
+        reader.readAsDataURL(file);
       } else {
-        localStorage.setItem("isLoggedIn", "false");
-      }
-
-      // 渐隐加载动画
-      const loader = document.getElementById('loading');
-      loader.style.opacity = '0';
-      setTimeout(() => loader.remove(), 600);
-
-      // 显示页面
-      document.body.classList.remove('preload');
-      document.body.style.opacity = '1';
-    });
-
-    // 内部链接渐隐跳转
-    document.addEventListener("DOMContentLoaded", () => {
-      const links = document.querySelectorAll("a[href]");
-      links.forEach(link => {
-        const href = link.getAttribute("href");
-        if (!href.startsWith("#") && !href.startsWith("javascript")) {
-          link.addEventListener("click", (e) => {
-            e.preventDefault();
-            document.body.style.opacity = '0';
-            setTimeout(() => window.location.href = href, 600);
-          });
-        }
-      });
-    });
-
-    // 登录弹窗逻辑
-    function closeModal() {
-      document.getElementById("loginModal").classList.remove("active");
-    }
-
-    document.getElementById("donateBtn").addEventListener("click", async () => {
-      const { data } = await supabase.auth.getUser();
-      const loggedIn = !!data?.user;
-
-      if (loggedIn) {
-        document.body.style.opacity = '0';
-        setTimeout(() => window.location.href = "donate.html", 600);
-      } else {
-        document.getElementById("loginModal").classList.add("active");
+        alert('请上传 JPG 或 PNG 格式图片');
       }
     });
 
-    document.querySelector(".close").addEventListener("click", closeModal);
-
-    const loginRedirectBtn = document.getElementById('loginRedirect');
-    if (loginRedirectBtn) {
-      loginRedirectBtn.addEventListener('click', async () => {
-        await supabase.auth.signInWithOAuth({
-          provider: 'github',
-          options: { redirectTo: location.origin + '/donate.html' }
-        });
+    // 明暗模式切换
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    let darkMode = false;
+    themeToggle.addEventListener('click', () => {
+      darkMode = !darkMode;
+      document.querySelectorAll('.glass, .glass-dark').forEach(el => {
+        el.classList.toggle('glass');
+        el.classList.toggle('glass-dark');
       });
-    }
+      themeIcon.classList.toggle('fa-sun-o');
+      themeIcon.classList.toggle('fa-moon-o');
+    });
   </script>
 </body>
 </html>
