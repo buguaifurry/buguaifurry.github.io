@@ -55,6 +55,14 @@
     <div class="absolute inset-0 bg-gradient-to-b from-black/10 to-black/40 z-10"></div>
   </div>
 
+  <!-- 音乐播放器（网易云） -->
+  <iframe id="music-player"
+    frameborder="no" border="0" marginwidth="0" marginheight="0" width="0" height="0"
+    src="https://music.163.com/outchain/player?type=2&id=420401511&auto=1&height=66">
+  </iframe>
+  <!-- ↑ 修改上面的 id=1330348068 为你想播放的歌曲ID即可 -->
+  <!-- 例：歌曲链接 https://music.163.com/song?id=xxxxxx，把 xxxxxx 替换进上面 id= 后面 -->
+
   <!-- 内容 -->
   <div class="relative z-20 container mx-auto px-4 py-8 md:py-14">
     <!-- 顶部标题 + 控制 -->
@@ -91,7 +99,7 @@
       </div>
     </div>
 
-    <!-- 搜索框（Bing 搜索可用版） -->
+    <!-- 搜索框 -->
 <form action="https://www.bing.com/search" method="get" target="_blank"
       class="glass rounded-3xl px-6 py-4 mb-12 max-w-2xl mx-auto">
   <div class="flex items-center">
@@ -101,7 +109,7 @@
   </div>
 </form>
 
-    <!-- 导航卡片区 -->
+    <!-- 导航区 -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
       <a href="https://link3.cc/2buguai" target="_blank" class="glass rounded-2xl p-6 flex flex-col items-center text-center btn-hover">
         <div class="icon-bg rounded-full w-16 h-12 md:w-20 md:h-16 flex items-center justify-center mb-4">
@@ -171,9 +179,9 @@
     </div>
   </div>
 
-  <!-- 脚本 -->
+  <!-- JS 控制 -->
   <script>
-    // 背景图替换
+    // 背景上传
     const bgUpload = document.getElementById('bg-upload');
     const bgImage = document.getElementById('bg-image');
     bgUpload.addEventListener('change', (e) => {
@@ -193,7 +201,7 @@
       }
     });
 
-    // 明暗模式切换
+    // 明暗模式
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
     let darkMode = false;
