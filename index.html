@@ -89,7 +89,7 @@
       </div>
       <div class="text-white/90">
         <h2 class="text-3xl font-bold mb-2">布乖Furry</h2>
-        <p class="text-white/70 mb-4">优先内容创作者 · 2024快手百大网红</p>
+        <p class="text-white/70 mb-4">优质视频创作者 · 2024年快手百大</p>
         <p class="leading-relaxed mb-4">你好！我是 <strong>布乖</strong>，一名热爱分享兽圈文化与创意短视频的内容创作者。</p>
         <div class="flex flex-wrap gap-2 mb-4">
           <span class="glass px-3 py-1 rounded-full text-sm">视频创作者</span>
@@ -151,31 +151,48 @@
         <p class="text-white/60 text-sm mt-1">邮件服务</p>
       </a>
       
-      <a href="https://www.zhihu.com" target="_blank" class="glass rounded-2xl p-6 flex flex-col items-center text-center btn-hover">
-        <div class="icon-bg rounded-full w-16 h-12 md:w-20 md:h-16 flex items-center justify-center mb-4">
-          <i class="fa fa-comment text-blue-300 text-3xl"></i>
-        </div>
-        <h3 class="text-white font-medium text-lg">知乎</h3>
-        <p class="text-white/60 text-sm mt-1">问答社区</p>
-      </a>
-
-      <a href="https://github.com" target="_blank" class="glass rounded-2xl p-6 flex flex-col items-center text-center btn-hover">
-        <div class="icon-bg rounded-full w-16 h-12 md:w-20 md:h-16 flex items-center justify-center mb-4">
-          <i class="fa fa-github text-white text-3xl"></i>
-        </div>
-        <h3 class="text-white font-medium text-lg">GitHub</h3>
-        <p class="text-white/60 text-sm mt-1">代码仓库</p>
-      </a>
-
       <button class="glass rounded-2xl p-6 flex flex-col items-center justify-center text-center btn-hover border-2 border-dashed border-white/30">
         <i class="fa fa-plus text-white text-3xl mb-2"></i>
         <h3 class="text-white font-medium text-lg">添加新导航</h3>
       </button>
     </div>
+    
+<!-- 图片轮播展示（iOS半透明液态玻璃 + 4:3比例 + 保留白雾层隐藏轮播点） -->
+<div class="relative mt-16 max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-xl group">
+  <!-- iOS液态玻璃底层 -->
+  <div class="absolute inset-0 glass rounded-3xl"></div>
 
+  <!-- 图片层（4:3比例） -->
+  <div class="relative z-10 aspect-[4/3] w-full overflow-hidden rounded-2xl">
+    <img id="slider-img" src="image1.jpg" alt="展示图"
+         class="w-full h-full object-cover transition-opacity duration-1000 opacity-100 rounded-2xl">
+
+    <!-- 左右切换箭头 -->
+    <button id="prev-btn"
+            class="absolute left-3 top-1/2 -translate-y-1/2 glass text-black p-3 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300">
+      <i class="fa fa-chevron-left text-lg"></i>
+    </button>
+    <button id="next-btn"
+            class="absolute right-3 top-1/2 -translate-y-1/2 glass text-black p-3 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300">
+      <i class="fa fa-chevron-right text-lg"></i>
+    </button>
+  </div>
+
+  <!-- 底部液态玻璃条（与上方效果1=1） -->
+  <div class="absolute -bottom-5 left-1/2 transform -translate-x-1/2 
+              glass rounded-full w-[80%] py-3 z-20 flex items-center justify-center">
+    <!-- 圆点结构保留但隐藏 -->
+    <button class="w-3 h-3 rounded-full bg-white/60 hidden" data-index="0"></button>
+    <button class="w-3 h-3 rounded-full bg-white/60 hidden" data-index="1"></button>
+    <button class="w-3 h-3 rounded-full bg-white/60 hidden" data-index="2"></button>
+    <button class="w-3 h-3 rounded-full bg-white/60 hidden" data-index="3"></button>
+    <button class="w-3 h-3 rounded-full bg-white/60 hidden" data-index="4"></button>
+  </div>
+</div>
+    
     <!-- 底部信息 -->
     <div class="mt-16 text-center">
-      <p class="text-white/60 text-sm">布乖个人主页 © 2025</p>
+      <p class="text-white/60 text-sm">布乖个人主页 © 2025•鄂ICP备案xxxxxxxx</p>
     </div>
   </div>
 
