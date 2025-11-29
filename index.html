@@ -70,7 +70,7 @@
         /* 模拟卡片样式的主容器 (应用玻璃效果) */
         .container {
             width: 100%;
-            max-width: 400px; /* 移动端最大宽度 */
+            max-width: 400px;
             border-radius: 20px;
             padding: 20px;
             position: relative;
@@ -214,7 +214,7 @@
         }
 
 
-        /* 网格内容区 - 移动端默认两列 */
+        /* 网格内容区 */
         .content-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -284,7 +284,7 @@
         }
 
 
-        /* *** 占满两列的长卡片样式 (轮播容器) - 移动端跨越 2 列 *** */
+        /* *** 占满两列的长卡片样式 (轮播容器) *** */
         .grid-item-full {
             grid-column: span 2; 
             aspect-ratio: 4 / 3; 
@@ -341,9 +341,9 @@
             display: block;
         }
         
-        /* 轮播导航点（您要求隐藏） */
+        /* 轮播导航点（您要求隐藏，因此不需要样式） */
         .carousel-nav {
-            display: none; 
+            display: none; /* 隐藏所有导航元素，包括小点点 */
         }
 
         /* 右侧浮动图标区 (应用玻璃效果) */
@@ -404,31 +404,6 @@
 
         body.dark-theme .footer p {
             color: #e0e0e0;
-        }
-        
-        /* ================================================= */
-        /* >>> PC 端适配 (Media Query) - 屏幕宽度大于 600px <<< */
-        /* ================================================= */
-
-        @media (min-width: 600px) {
-            /* 1. 增加主容器最大宽度 */
-            .container {
-                max-width: 780px; /* 增大到能容纳四列的宽度 */
-            }
-
-            /* 2. 将网格布局改为 4 列 */
-            .content-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-            
-            /* 3. 调整大卡片，使其跨越 4 列（保持占满整行） */
-            .grid-item-full {
-                grid-column: span 4;
-            }
-            
-            /* 4. 将 grid-item-full 向上移动一行（视觉上） */
-            /* 移动卡片 3 和 4 到第一排，它们会自然地排在卡片 1 和 2 旁边。
-               卡片 1, 2, 3, 4 占据第一行。大卡片 (full) 占据第二行。*/
         }
     </style>
 </head>
@@ -524,9 +499,6 @@
             
         </div>
         
-        <div class="footer">
-            <p>布乖个人主页 © 2025</p>
-        </div>
         
     </div>
   
