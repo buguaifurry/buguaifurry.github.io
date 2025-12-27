@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cn布乖导航页</title>
+    <title>CN布乖导航页</title>
     <style>
         /* 基础样式和背景 */
         body {
@@ -15,12 +15,13 @@
             min-height: 100vh;
             margin: 0;
             padding: 20px;
-            background-image: url('https://pbs.twimg.com/media/G4T7ra3asAQnCtQ?format=jpg&name=small'); 
+            background-image: url('https://pbs.twimg.com/media/GHXf216bMAAzF-U?format=jpg&name=small'); 
             background-size: cover;
             background-position: center;
             transition: background-color 0.3s ease, background-image 0.3s ease;
             color: #333;
             position: relative; 
+            z-index: 1;
         }
         
         body::before {
@@ -153,9 +154,8 @@
             gap: 15px;
         }
 
-        /* --- 核心修改：窄长方底框比例 --- */
         .grid-item {
-            aspect-ratio: 2.2 / 1; /* 比例：宽是高的2.2倍，呈现窄长方感 */
+            aspect-ratio: 2.2 / 1; 
             height: auto;
             border-radius: 12px;
             cursor: pointer;
@@ -166,21 +166,26 @@
             overflow: hidden;
         }
 
+        .grid-item:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
         .grid-item a {
             text-decoration: none; 
             display: flex;
-            flex-direction: row;    /* 图标和文字横向排列 */
+            flex-direction: row;    
             align-items: center;
             width: 100%;
             height: 100%;
             padding: 0 10px; 
             gap: 10px;
-            color: #e0e0e0;
+            color: #ffffff;
             box-sizing: border-box;
         }
 
         .grid-item-image {
-            width: 42px; /* 适配窄长方的高度 */
+            width: 42px; 
             height: 42px; 
             border-radius: 8px; 
             overflow: hidden; 
@@ -190,9 +195,8 @@
         .grid-item-content { 
             font-weight: 600; 
             font-size: 0.85rem; 
-            white-space: nowrap; /* 避免文字在窄框内折行 */
+            white-space: nowrap; 
         }
-        /* ---------------------------- */
 
         .grid-item-image img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -220,12 +224,70 @@
             width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
             background-color: rgba(255, 255, 255, 0.25); border: 1px solid rgba(255, 255, 255, 0.4); cursor: pointer;
         }
+
+        /* --- 自定义弹窗样式 --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none; /* 默认隐藏 */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 25px;
+            border-radius: 20px;
+            width: 80%;
+            max-width: 300px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        body.dark-theme .modal-content {
+            background: rgba(40, 40, 40, 0.85);
+            color: white;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-content h3 { margin-top: 0; }
+        .modal-content p { font-size: 0.95rem; line-height: 1.5; color: #444; }
+        body.dark-theme .modal-content p { color: #ccc; }
+
+        .modal-btn {
+            margin-top: 20px;
+            padding: 10px 30px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
     <input type="file" id="bgfileinput" accept="image/*" style="display: none;">
     
+    <div class="modal-overlay" id="customModal">
+        <div class="modal-content">
+            <h3>在线留言</h3>
+            <p id="modalText">此功能【正在开发中】暂不支持用户使用！欢迎来到布乖的导航页。</p>
+            <button class="modal-btn" onclick="closeModal()">好的</button>
+        </div>
+    </div>
+
     <div class="container">
         <div class="icon-row">
             <div class="icon" id="changebgimage">🖼️</div>
@@ -273,8 +335,9 @@
                     <div class="grid-item-content">外网社区</div>
                 </a>
             </div>
-            <div class="grid-item">
-                <a href="https://i.postimg.cc/kgK7QFLJ/IMG-20251226-123838.png" target="_blank">
+
+            <div class="grid-item" onclick="openModal()">
+                <a href="javascript:void(0);">
                     <div class="grid-item-image"><img src="https://i.postimg.cc/kgK7QFLJ/IMG-20251226-123838.png"></div>
                     <div class="grid-item-content">在线留言</div>
                 </a>
@@ -283,7 +346,7 @@
             <div class="grid-item-full" id="imageCarousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active"><img src="https://i.postimg.cc/t48TWDgJ/20251129-075548.jpg"></div>
-                    <div class="carousel-item"><img src="https://pbs.twimg.com/media/GHXf216bMAAzF-U?format=jpg&name=small"></div>
+                    <div class="carousel-item"><img src="https://pbs.twimg.com/media/EqEz2OnVEAAFUqb?format=jpg&name=large"></div>
                 </div>
             </div>
         </div>
@@ -295,6 +358,23 @@
         const changebgimage = document.getElementById('changebgimage');
         const bgfileinput = document.getElementById('bgfileinput'); 
         const carousel = document.getElementById('imageCarousel');
+        const modal = document.getElementById('customModal');
+
+        // 弹窗控制
+        function openModal() {
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        // 点击背景关闭弹窗
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
         
         themetoggle.addEventListener('click', () => {
             body.classList.toggle('dark-theme');
