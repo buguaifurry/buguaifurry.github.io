@@ -5,285 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CN布乖导航页</title>
     <style>
-        /* 基础样式和背景 */
+        /* 基础样式设置 */
         body {
             font-family: -apple-system, blinkmacsystemfont, "segoe ui", roboto, "helvetica neue", arial, sans-serif;
             background-color: #f0f0f0; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px;
             background-image: url('https://pbs.twimg.com/media/GHXf216bMAAzF-U?format=jpg&name=small'); 
-            background-size: cover;
-            background-position: center;
-            transition: background-color 0.3s ease, background-image 0.3s ease;
-            color: #333;
-            position: relative; 
-            z-index: 1;
+            background-size: cover; background-position: center; transition: all 0.3s ease; color: #333; position: relative; z-index: 1;
         }
         
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%);
-            z-index: -1; 
-        }
-
-        body.dark-theme {
-            background-color: #1a1a1a;
-            color: #f0f0f0;
-        }
-        
-        body.dark-theme::before {
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%);
-        }
+        body::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%); z-index: -1; }
+        body.dark-theme { background-color: #1a1a1a; color: #f0f0f0; }
 
         .container {
-            width: 100%;
-            max-width: 400px;
-            border-radius: 20px;
-            padding: 20px;
-            position: relative;
-            background-color: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(15px) saturate(1.2); 
-            -webkit-backdrop-filter: blur(15px) saturate(1.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            width: 100%; max-width: 400px; border-radius: 20px; padding: 20px; position: relative;
+            background-color: rgba(255, 255, 255, 0.2); backdrop-filter: blur(15px) saturate(1.2); border: 1px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
         }
 
-        body.dark-theme .container {
-            background-color: rgba(28, 28, 30, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-        }
+        .header { display: flex; align-items: center; margin-bottom: 10px; }
+        .avatar { width: 70px; height: 70px; border-radius: 10px; overflow: hidden; border: 3px solid rgba(255, 255, 255, 0.5); flex-shrink: 0; margin-right: 15px; }
+        .avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .info h1 { font-size: 1.4rem; font-weight: 700; margin: 0; color: #ffffff; }
+        .info p { font-size: 0.9rem; color: #e0e0e0; margin: 0; text-indent: 1em; }
 
-        .header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
+        .tags { display: flex; gap: 10px; margin: 10px 0; }
+        .tag { padding: 5px 12px; border-radius: 15px; font-size: 0.8rem; background: rgba(255, 255, 255, 0.2); color: #eee; border: 1px solid rgba(255, 255, 255, 0.3); }
 
-        .tags {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
+        .search-box { display: flex; align-items: center; border-radius: 12px; padding: 8px 15px; background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.3); margin-bottom: 12px; }
+        .search-box input { flex-grow: 1; border: none; background: transparent; color: white; outline: none; }
 
-        .search-form {
-            margin-bottom: 12px;
-        }
-
-        .avatar {
-            width: 70px;
-            height: 70px;
-            border-radius: 10px; 
-            overflow: hidden;
-            border: 3px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            flex-shrink: 0;
-            margin-right: 15px;
-            transition: border-color 0.3s ease;
-            cursor: pointer; 
-        }
-
-        body.dark-theme .avatar {
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .info h1 {
-            font-size: 1.4rem; 
-            font-weight: 700;
-            margin: 0 0 5px 0;
-            color: #ffffff;
-        }
-
-        .info p {
-            font-size: 0.9rem;
-            color: #e0e0e0;
-            margin: 0;
-            text-indent: 1em;
-        }
-
-        .tag {
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            background-color: rgba(255, 255, 255, 0.2); 
-            backdrop-filter: blur(15px) saturate(1.2); 
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: #e0e0e0; 
-            transition: all 0.3s ease;
-        }
-
-        .search-box {
-            display: flex;
-            align-items: center;
-            border-radius: 12px; 
-            padding: 8px 15px; 
-            background-color: rgba(255, 255, 255, 0.2); 
-            backdrop-filter: blur(15px) saturate(1.2); 
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .search-box input {
-            flex-grow: 1;
-            border: none;
-            background: transparent;
-            font-size: 1rem;
-            color: #e0e0e0; 
-            outline: none;
-        }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-
-        .grid-item {
-            aspect-ratio: 2.2 / 1; 
-            height: auto;
-            border-radius: 12px;
-            cursor: pointer;
-            background-color: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(15px) saturate(1.2); 
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-
-        .grid-item:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .grid-item a {
-            text-decoration: none; 
-            display: flex;
-            flex-direction: row;    
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            padding: 0 10px; 
-            gap: 10px;
-            color: #ffffff;
-            box-sizing: border-box;
-        }
-
-        .grid-item-image {
-            width: 42px; 
-            height: 42px; 
-            border-radius: 8px; 
-            overflow: hidden; 
-            flex-shrink: 0; 
-        }
-
-        .grid-item-content { 
-            font-weight: 600; 
-            font-size: 0.85rem; 
-            white-space: nowrap; 
-        }
-
+        .content-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .grid-item { aspect-ratio: 2.2 / 1; border-radius: 12px; background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.3); transition: 0.3s; overflow: hidden; cursor: pointer; }
+        .grid-item:hover { background-color: rgba(255, 255, 255, 0.3); transform: translateY(-2px); }
+        .grid-item a { text-decoration: none; display: flex; align-items: center; width: 100%; height: 100%; padding: 0 10px; gap: 10px; color: white; }
+        .grid-item-image { width: 42px; height: 42px; border-radius: 8px; overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
         .grid-item-image img { width: 100%; height: 100%; object-fit: cover; }
+        .grid-item-content { font-weight: 600; font-size: 0.85rem; }
 
-        .grid-item-full {
-            grid-column: span 2; 
-            aspect-ratio: 4 / 3; 
-            border-radius: 12px;
-            background-color: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(15px) saturate(1.2); 
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .carousel-item {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease;
-        }
+        .grid-item-full { grid-column: span 2; aspect-ratio: 4 / 3; border-radius: 12px; background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.3); position: relative; overflow: hidden; }
+        .carousel-item { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s; }
         .carousel-item.active { opacity: 1; }
         .carousel-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        .icon-row {
-            display: flex; gap: 10px; position: absolute; top: 10px; right: 15px; z-index: 10;
-        }
-        .icon-row .icon {
-            width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            background-color: rgba(255, 255, 255, 0.25); border: 1px solid rgba(255, 255, 255, 0.4); cursor: pointer;
-        }
+        .icon-row { display: flex; gap: 10px; position: absolute; top: 10px; right: 15px; z-index: 10; }
+        .icon-row .icon { width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; background: rgba(255, 255, 255, 0.25); cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.4); }
 
-        /* --- 自定义弹窗样式 --- */
+        /* 弹窗样式 */
         .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: none; /* 默认隐藏 */
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            backdrop-filter: blur(5px);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center;
+            z-index: 1000; backdrop-filter: blur(5px);
         }
-
         .modal-content {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px);
-            padding: 25px;
-            border-radius: 20px;
-            width: 80%;
-            max-width: 300px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            animation: modalFadeIn 0.3s ease;
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px);
+            padding: 25px; border-radius: 20px; width: 85%; max-width: 320px;
+            text-align: center; border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
+        body.dark-theme .modal-content { background: rgba(40, 40, 40, 0.9); color: white; }
 
-        body.dark-theme .modal-content {
-            background: rgba(40, 40, 40, 0.85);
-            color: white;
-        }
-
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .modal-content h3 { margin-top: 0; }
-        .modal-content p { font-size: 0.95rem; line-height: 1.5; color: #444; }
-        body.dark-theme .modal-content p { color: #ccc; }
+        /* 弹窗内部图片区域 */
+        #display-img-area { margin-top: 15px; width: 100%; border-radius: 10px; overflow: hidden; }
+        #display-img-area img { width: 100%; max-height: 200px; object-fit: contain; }
 
         .modal-btn {
-            margin-top: 20px;
-            padding: 10px 30px;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
+            margin-top: 20px; padding: 10px 30px; background: #007bff;
+            color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%;
         }
     </style>
 </head>
 <body>
 
     <input type="file" id="bgfileinput" accept="image/*" style="display: none;">
-    
+
     <div class="modal-overlay" id="customModal">
         <div class="modal-content">
-            <h3>在线留言</h3>
-            <p id="modalText">此功能【正在开发中】暂不支持用户使用！欢迎来到布乖的导航页。</p>
+            <h3 id="modalTitle">标题</h3>
+            <p id="modalText">内容描述</p>
+            <div id="display-img-area">
+                <img id="modal-main-img" src="" alt="展示图">
+            </div>
             <button class="modal-btn" onclick="closeModal()">好的</button>
         </div>
     </div>
@@ -295,9 +96,7 @@
         </div>
 
         <div class="header">
-            <div class="avatar">
-                <img id="avatarimage" src="IMG_20251109_114823.jpg" alt="头像">
-            </div>
+            <div class="avatar"><img src="IMG_20251109_114823.jpg"></div>
             <div class="info">
                 <h1>布乖Furry</h1>
                 <p>你好，我是一名热爱分享兽圈文化与创意短视频的创作者</p>
@@ -336,13 +135,22 @@
                 </a>
             </div>
 
-            <div class="grid-item" onclick="openModal()">
+            <div class="grid-item" onclick="showCopyright()">
+                <a href="javascript:void(0);">
+                    <div class="grid-item-image">
+                        <img src="https://i.postimg.cc/GtfkGzRH/IMG-20251227-123854.png" alt="版权图标">
+                    </div>
+                    <div class="grid-item-content">版权信息</div>
+                </a>
+            </div>
+
+            <div class="grid-item" onclick="showMessageBoard()">
                 <a href="javascript:void(0);">
                     <div class="grid-item-image"><img src="https://i.postimg.cc/kgK7QFLJ/IMG-20251226-123838.png"></div>
                     <div class="grid-item-content">在线留言</div>
                 </a>
             </div>
-            
+
             <div class="grid-item-full" id="imageCarousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active"><img src="https://i.postimg.cc/t48TWDgJ/20251129-075548.jpg"></div>
@@ -354,28 +162,37 @@
   
     <script>
         const body = document.body;
+        const modal = document.getElementById('customModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalText = document.getElementById('modalText');
+        const modalImg = document.getElementById('modal-main-img');
+        const imgArea = document.getElementById('display-img-area'); // 图片容器
+
+        function openModal() { modal.style.display = 'flex'; }
+        function closeModal() { modal.style.display = 'none'; }
+        window.onclick = (e) => { if(e.target == modal) closeModal(); }
+
+        /* 版权信息配置：保留图片 */
+        function showCopyright() {
+            modalTitle.textContent = "版权声明";
+            modalText.textContent = "© 2025 CN布乖. 保留所有权利。未经许可，禁止转载本站内容或图片。";
+            modalImg.src = "https://i.postimg.cc/fRHQQ9MR/IMG-20251227-131148.png"; 
+            imgArea.style.display = 'block'; // 确保图片区域是显示的
+            openModal();
+        }
+
+        /* 在线留言配置：取消图片显示 */
+        function showMessageBoard() {
+            modalTitle.textContent = "在线留言";
+            modalText.textContent = "此功能【正在开发中】暂不支持用户使用！欢迎来到布乖的导航页。";
+            imgArea.style.display = 'none'; // 关键：隐藏图片容器
+            openModal();
+        }
+
         const themetoggle = document.getElementById('themetoggle');
         const changebgimage = document.getElementById('changebgimage');
-        const bgfileinput = document.getElementById('bgfileinput'); 
-        const carousel = document.getElementById('imageCarousel');
-        const modal = document.getElementById('customModal');
+        const bgfileinput = document.getElementById('bgfileinput');
 
-        // 弹窗控制
-        function openModal() {
-            modal.style.display = 'flex';
-        }
-
-        function closeModal() {
-            modal.style.display = 'none';
-        }
-
-        // 点击背景关闭弹窗
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
-        
         themetoggle.addEventListener('click', () => {
             body.classList.toggle('dark-theme');
             themetoggle.textContent = body.classList.contains('dark-theme') ? '🌙' : '☀️';
@@ -386,20 +203,19 @@
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = (event) => body.style.backgroundImage = `url('${event.target.result}')`;
+                reader.onload = (ev) => body.style.backgroundImage = `url('${ev.target.result}')`;
                 reader.readAsDataURL(file);
             }
         });
 
         let slideIndex = 0;
-        function showSlides() {
-            const items = carousel.querySelectorAll('.carousel-item');
+        setInterval(() => {
+            const items = document.querySelectorAll('.carousel-item');
             if (!items.length) return;
             items.forEach(item => item.classList.remove('active'));
             slideIndex = (slideIndex + 1) % items.length;
             items[slideIndex].classList.add('active');
-        }
-        setInterval(showSlides, 3000);
+        }, 3000);
     </script>
 </body>
 </html>
