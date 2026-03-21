@@ -7,7 +7,7 @@
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     
     <style>
-        /* 【核心修改：默认设为深色】 */
+        /* 【默认设为深色】 */
         :root {
             --bg-color: #121212;
             --body-bg: #000000;
@@ -21,7 +21,7 @@
             --china-red: #fe2c55;
         }
 
-        /* 【切换为浅色模式】当切换到 light 时使用的颜色 */
+        /* 【切换为浅色模式】 */
         [data-theme="light"] {
             --bg-color: #FFFFFF;
             --body-bg: #f2f2f7;
@@ -41,8 +41,13 @@
         .app-container { width: 100%; background: var(--bg-color); min-height: 100vh; position: relative; box-shadow: var(--shadow); transition: background 0.3s ease; }
         @media (min-width: 768px) { .app-container { max-width: 800px; margin: 20px 0; border-radius: 28px; overflow: hidden; } }
 
-        /* 横幅与遮罩 */
-        .header-banner { width: 100%; height: 240px; background: #333 url("20260321_200012.jpg") center/cover no-repeat; position: relative; }
+        /* 【背景1更换位置：已修改为你的图片】 */
+        .header-banner { 
+            width: 100%; 
+            height: 240px; 
+            background: #333 url("1000097912.jpg") center/cover no-repeat; 
+            position: relative; 
+        }
         .header-banner::after { content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 100px; background: linear-gradient(to bottom, transparent, var(--fade-end)); transition: background 0.3s ease; }
         
         .top-nav { position: absolute; top: 20px; right: 20px; z-index: 100; display: flex; gap: 10px; }
@@ -61,7 +66,20 @@
         .name-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
         .user-name { font-size: 1.5rem; font-weight: 800; margin: 0; }
         .verify-icon { width: 22px; height: 22px; background: url("https://img.icons8.com/color/48/verified-badge.png") center/contain no-repeat; margin-left: 8px; }
-        .follow-btn-china { background-color: var(--china-red); color: #FFFFFF; border: none; padding: 7px 18px; font-size: 0.85rem; font-weight: 600; border-radius: 6px; cursor: pointer; }
+        
+        /* 关注按钮样式 */
+        .follow-btn-china { 
+            background-color: var(--china-red); 
+            color: #FFFFFF; 
+            border: none; 
+            padding: 7px 18px; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            text-decoration: none; /* 确保文字没有下划线 */
+            display: inline-block;
+        }
 
         /* 网格按钮 */
         .content-section { padding: 25px 20px 100px; }
@@ -103,14 +121,17 @@
         .close-game { color: white; margin-bottom: 12px; cursor: pointer; }
     </style>
 </head>
-<body data-theme="dark"> <div class="app-container">
+<body data-theme="dark">
+
+    <div class="app-container">
         <audio id="main-audio" loop autoplay src="http://aqqmusic.tc.qq.com/RS02063zeIkI2qaRsF.mp3?guid=8627029359&vkey=87E0A0D750190610D23BC7612044BC64CE116108C1D660FEC9135E461E53FD0D1E45D4CE318ADC54ADBDE12E1BD8719868235F9F5C1F6C60__v21563ff8a&uin=&fromtag=123052"></audio>
         
         <input type="file" id="bg-upload" accept="image/*" style="display: none;">
 
         <div class="top-nav">
             <div class="icon-btn" id="bg-trigger">🖼️</div>
-            <div class="icon-btn" id="theme-btn">🌙</div> </div>
+            <div class="icon-btn" id="theme-btn">🌙</div>
+        </div>
 
         <div class="header-banner" id="banner"></div>
 
@@ -118,9 +139,9 @@
             <img src="IMG_20251109_114823.jpg" class="avatar">
             <div class="stats-wrapper">
                 <div class="stats-group">
-                    <div class="stat-item"><span class="stat-val">128</span><span class="stat-label">关注</span></div>
-                    <div class="stat-item"><span class="stat-val">3.5w</span><span class="stat-label">粉丝</span></div>
-                    <div class="stat-item"><span class="stat-val">99+</span><span class="stat-label">动态</span></div>
+                    <div class="stat-item"><span class="stat-val">2</span><span class="stat-label">关注</span></div>
+                    <div class="stat-item"><span class="stat-val">3.1w</span><span class="stat-label">全网粉丝</span></div>
+                    <div class="stat-item"><span class="stat-val">57.2w</span><span class="stat-label">全网获赞</span></div>
                 </div>
             </div>
             
@@ -130,7 +151,7 @@
                         <h1 class="user-name">布乖Furry</h1>
                         <span class="verify-icon"></span>
                     </div>
-                    <button class="follow-btn-china">+ 关注一下</button>
+                    <a href="https://v.kuaishou.com/nVI33RaY" target="_blank" class="follow-btn-china">+ 关注一下</a>
                 </div>
                 <p style="font-size: 0.85rem; color: var(--text-sub); margin-top: 10px;">入驻平台：抖音、快手、哔哩哔哩、小红书</p>
             </div>
@@ -187,6 +208,7 @@
     </div>
 
     <script>
+        // 脚本部分保持原样，仅确保主题切换逻辑正确
         const audio = document.getElementById('main-audio');
         const playBtn = document.getElementById('play-btn');
         const playIcon = document.getElementById('play-icon');
@@ -194,7 +216,6 @@
         const banner = document.getElementById('banner');
         const bgUpload = document.getElementById('bg-upload');
 
-        // 更换背景
         document.getElementById('bg-trigger').onclick = () => bgUpload.click();
         bgUpload.onchange = (e) => {
             const file = e.target.files[0];
@@ -205,7 +226,6 @@
             }
         };
 
-        // 播放逻辑
         playBtn.onclick = () => {
             if (audio.paused) {
                 audio.play();
@@ -218,7 +238,6 @@
             }
         };
 
-        // 游戏
         const ruffle = window.RufflePlayer.newest();
         const player = ruffle.createPlayer();
         document.getElementById('play-game').onclick = () => {
@@ -231,7 +250,6 @@
             player.pause();
         };
 
-        // 自动播放
         window.onload = () => {
             audio.play().catch(() => {
                 playStatus.textContent = "点击播放 - 雨过后的风景";
@@ -239,15 +257,14 @@
             });
         };
 
-        // 【核心切换逻辑调整】
         document.getElementById('theme-btn').onclick = () => {
             const isDark = document.body.getAttribute('data-theme') === 'dark';
             if (isDark) {
                 document.body.setAttribute('data-theme', 'light');
-                document.getElementById('theme-btn').textContent = '☀️'; // 切为浅色显示太阳
+                document.getElementById('theme-btn').textContent = '☀️';
             } else {
                 document.body.setAttribute('data-theme', 'dark');
-                document.getElementById('theme-btn').textContent = '🌙'; // 切为深色显示月亮
+                document.getElementById('theme-btn').textContent = '🌙';
             }
         };
     </script>
