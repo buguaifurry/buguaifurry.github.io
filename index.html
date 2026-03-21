@@ -7,12 +7,9 @@
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     
     <style>
-        /* 【变量名已按要求更名】 */
         :root {
-            /* 原背景2更名为背景3 (网页主体大背景) */
             --bg-color-v3: #121212; 
             --body-bg-v3: #000000;
-            
             --card-bg: rgba(28, 28, 30, 0.92);
             --item-bg: rgba(255, 255, 255, 0.06);
             --border-color: rgba(255, 255, 255, 0.1);
@@ -37,12 +34,11 @@
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
-        /* --- 电脑端 UI 新增背景1 --- */
         body { 
             margin: 0; 
             padding: 0; 
             font-family: -apple-system, "PingFang SC", sans-serif; 
-            background: var(--body-bg-v3); /* 默认背景3（原） */
+            background: var(--body-bg-v3); 
             color: var(--text-main); 
             display: flex; 
             justify-content: center; 
@@ -52,7 +48,6 @@
 
         @media (min-width: 768px) {
             body {
-                /* 这里是新增的【背景1】：仅在电脑端显示，作为最底层的装饰 */
                 background-image: url("20251227_080032.jpg"); 
                 background-size: cover;
                 background-position: center;
@@ -60,7 +55,6 @@
             }
         }
 
-        /* 【背景3】的容器层 */
         .app-container { 
             width: 100%; 
             background: var(--bg-color-v3); 
@@ -73,13 +67,12 @@
         @media (min-width: 768px) { 
             .app-container { 
                 max-width: 800px; 
-                margin: 40px 0; /* 电脑端上下留白，露出底层的背景1 */
+                margin: 40px 0; 
                 border-radius: 28px; 
                 overflow: hidden; 
             } 
         }
 
-        /* 【背景2】：顶部的横幅 */
         .header-banner-v2 { 
             width: 100%; 
             height: 240px; 
@@ -96,24 +89,45 @@
             background: linear-gradient(to bottom, transparent, var(--fade-end)); 
         }
         
-        /* 其他样式保持不变... */
         .top-nav { position: absolute; top: 20px; right: 20px; z-index: 100; display: flex; gap: 10px; }
         .icon-btn { width: 40px; height: 40px; background: rgba(0,0,0,0.3); backdrop-filter: blur(10px); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); }
+        
         .profile-card { margin: -60px 20px 0; padding: 0 20px 25px; background: var(--card-bg); backdrop-filter: blur(40px); border-radius: 28px; z-index: 10; position: relative; border: 1px solid var(--border-color); box-shadow: var(--shadow); }
         .avatar { position: absolute; left: 20px; top: -28px; width: 90px; height: 90px; border-radius: 50%; border: 4px solid var(--bg-color-v3) !important; object-fit: cover; }
+        
         .stats-wrapper { display: flex; justify-content: flex-end; width: 100%; height: 62px; }
         .stats-group { width: calc(100% - 100px); display: flex; justify-content: space-around; align-items: center; height: 100%; }
         .stat-val { display: block; font-size: 1.1rem; font-weight: 800; }
         .stat-label { font-size: 0.7rem; color: var(--text-sub); }
+        
         .user-info-block { margin-top: 25px; padding: 0 5px; }
         .name-row { display: flex; align-items: center; justify-content: space-between; }
         .user-name { font-size: 1.5rem; font-weight: 800; margin: 0; }
         .verify-icon { width: 22px; height: 22px; background: url("https://img.icons8.com/color/48/verified-badge.png") center/contain no-repeat; margin-left: 8px; }
         .follow-btn-china { background-color: var(--china-red); color: #FFFFFF; border: none; padding: 7px 18px; font-size: 0.85rem; font-weight: 600; border-radius: 6px; cursor: pointer; text-decoration: none; }
+        
         .content-section { padding: 25px 20px 100px; }
         .grid-layout { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); margin-bottom: 25px; }
         @media (min-width: 768px) { .grid-layout { grid-template-columns: repeat(3, 1fr); } }
-        .nav-card { background: var(--item-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 22px 10px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-decoration: none; color: inherit; transition: 0.3s; }
+
+        /* --- 【还原按钮大小的关键样式】 --- */
+        .nav-card { 
+            background: var(--item-bg); 
+            border: 1px solid var(--border-color); 
+            border-radius: 20px; 
+            padding: 22px 10px; /* 还原内边距 */
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 10px; /* 还原图标与文字间距 */
+            text-decoration: none; 
+            color: inherit; 
+            transition: 0.3s; 
+        }
+        .nav-card:active { transform: scale(0.92); }
+        .nav-card img { width: 42px; height: 42px; } /* 还原图标大小 */
+        .nav-card span { font-size: 0.85rem; font-weight: 600; } /* 还原文字大小 */
+        
         .qq-player { width: 100%; background: var(--card-bg); backdrop-filter: blur(25px); border-radius: 20px; padding: 12px 16px; border: 1px solid var(--border-color); display: flex; align-items: center; }
         .qq-album-art { width: 52px; height: 52px; border-radius: 12px; background: #333 url('https://img.icons8.com/fluency/96/music.png') center/50% no-repeat; }
         .qq-song-info { flex: 1; margin-left: 14px; }
