@@ -156,8 +156,8 @@
             </div>
             <div class="nav">
                 <a href="#" class="active">首页</a>
-                <a href="#">关于我们</a>
                 <a href="#">联系我们</a>
+                <a href="https://buguaifurry.github.io/dev" target="_blank">官方网站</a>
                 <a href="xiazaiyingyong.html">下载应用</a>
             </div>
         </div>
@@ -201,8 +201,9 @@
         const navLinks = document.querySelectorAll('.nav a');
         navLinks.forEach(item=>{
             item.onclick = function(e){
-                // 如果是下载应用则不阻止跳转
-                if(this.getAttribute('href') !== 'xiazaiyingyong.html'){
+                // 首页和下载应用不走新标签拦截，官方网站是外链不做active切换
+                let href = this.getAttribute('href');
+                if(href !== 'xiazaiyingyong.html' && href !== 'https://buguaifurry.github.io/dev'){
                     e.preventDefault();
                     navLinks.forEach(link=>link.classList.remove('active'));
                     this.classList.add('active');
