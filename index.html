@@ -71,7 +71,8 @@
             justify-content: center;
             color: white;
         }
-        .banner-bg-video{
+        /* 修改：替换video为gif背景图样式 */
+        .banner-bg-gif{
             position: absolute;
             top: 50%;
             left: 50%;
@@ -156,16 +157,15 @@
             <div class="nav">
                 <a href="#" class="active">首页</a>
                 <a href="#">关于我们</a>
-                <a href="#">下载应用</a>
+                <a href="xiazaiyingyong.html">下载应用</a>
                 <a href="#">联系我们</a>
             </div>
         </div>
     </header>
 
     <section class="banner">
-        <video class="banner-bg-video" autoplay muted loop playsinline>
-            <source src="https://sf1-cdn-tos.huoshanstatic.com/obj/media-fe/xgplayer_doc_video/mp4/xgplayer-demo-360p.mp4">
-        </video>
+        <!-- 删掉video，替换成gif图片 -->
+        <img class="banner-bg-gif" src="gif_260321_212041.gif" alt="背景动图">
         <div class="banner-mask"></div>
         <h1>欢迎访问我的GitHub总库静态网页</h1>
         <p>基于HTML5+CSS3制作，自适应手机/电脑端</p>
@@ -201,9 +201,12 @@
         const navLinks = document.querySelectorAll('.nav a');
         navLinks.forEach(item=>{
             item.onclick = function(e){
-                e.preventDefault();
-                navLinks.forEach(link=>link.classList.remove('active'));
-                this.classList.add('active');
+                // 如果是下载应用则不阻止跳转
+                if(this.getAttribute('href') !== 'xiazaiyingyong.html'){
+                    e.preventDefault();
+                    navLinks.forEach(link=>link.classList.remove('active'));
+                    this.classList.add('active');
+                }
             }
         })
     </script>
