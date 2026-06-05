@@ -7,122 +7,166 @@
     <!-- 引入Font Awesome图标 -->
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;font-family:Microsoft YaHei,system-ui}
-        html,body{width:100%;min-height:100%;background:#f0f4f9;}
-        
-        .header{
-            width:100%;
-            background:linear-gradient(135deg,#3671e9,#2050c9);
-            padding: 12px 5%;
-            display:flex;
-            align-items:center;
-            gap: 12px;
-            justify-content: space-between;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", system-ui;
         }
-        .header-left{
+        
+        body {
+            background: #f0f4f9;
+        }
+
+        /* ====== 导航栏样式（与首页、联系页保持一致） ====== */
+        header {
+            background: #2563eb; 
+            padding: 15px 5%; 
+        }
+        .nav-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-wrap {
             display: flex;
             align-items: center;
-            gap:12px;
+            gap: 12px;
         }
-        .avatar{
-            width:42px;
-            height:42px;
-            border-radius:50%;
-            object-fit:cover;
-            border:2px solid #fff;
+        .header-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #fff;
         }
-        .header-text h1{
-            color:#fff;
-            font-size:24px;
-            font-weight:bold;
-            line-height:1.1;
-        }
-        .back-index{
-            color:#fff;
+        .logo {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
             text-decoration: none;
-            border:1px solid #fff;
-            padding:6px 12px;
-            border-radius:6px;
-            font-size:15px;
+        }
+
+        /* 胶囊导航菜单 */
+        .nav {
+            display: flex;
+            gap: 10px;
+        }
+        .nav a {
+            background: transparent !important;
+            color: #fff !important;
+            padding: 8px 20px !important;
+            border-radius: 999px !important;
+            text-decoration: none !important;
+            transition: all 0.3s ease !important;
+        }
+        .nav a.active {
+            background: #ffffff !important;
+            color: #2563eb !important;
+        }
+        .nav a:hover:not(.active) {
+            background: rgba(255,255,255,0.2) !important;
+            color: #fff !important;
+        }
+
+        /* ====== 下载区域样式 ====== */
+        .download-wrap {
+            width: 90%;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+        .download-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 22px;
+            background: #fff;
+            border-radius: 10px;
+            margin-bottom: 14px;
+            box-shadow: 0 2px 10px #dde4ef;
+        }
+        .download-name {
+            font-size: 17px;
+            color: #222;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+        .download-name i {
+            font-size: 20px;
+            color: #2563eb;
+        }
+        .down-btn {
+            background: #2563eb;
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 22px;
+            border-radius: 999px;
             transition: 0.2s;
+            width: 110px;
+            text-align: center;
         }
-        .back-index:hover{
-            background:#fff;
-            color:#2050c9;
-        }
-
-        /* 下载区域样式 */
-        .download-wrap{
-            width:90%;
-            max-width:900px;
-            margin:40px auto;
-        }
-        .download-item{
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            padding:18px 22px;
-            background:#fff;
-            border-radius:10px;
-            margin-bottom:14px;
-            box-shadow:0 2px 10px #dde4ef;
-        }
-        .download-name{
-            font-size:17px;
-            color:#222;
-            display:flex;
-            align-items:center;
-            gap:10px;
-            /* 固定左侧区域宽度，实现右侧按钮全部对齐 */
-            flex:1;
-        }
-        .download-name i{
-            font-size:20px;
-            color:#2563eb;
-        }
-        .down-btn{
-            background:#2563eb;
-            color:#fff;
-            text-decoration:none;
-            padding:8px 22px;
-            border-radius:999px;
-            transition:0.2s;
-            /* 按钮固定宽度，文字居中统一对齐 */
-            width:110px;
-            text-align:center;
-        }
-        .down-btn:hover{
-            background:#1d4ed8;
+        .down-btn:hover {
+            background: #1d4ed8;
         }
 
-        @media(max-width:768px){
-            .header{padding:12px 5%;gap:10px}
-            .avatar{width:35px;height:35px}
-            .header-text h1{font-size:18px;font-weight:bold;}
-            .back-index{font-size:13px;padding:5px 8px;}
-            .download-item{padding:15px 16px;}
-            .download-name{font-size:15px;}
-            .download-name i{font-size:18px;}
-            .down-btn{
-                padding:7px 0;
-                width:95px;
-                font-size:14px;
+        /* ====== 底部版权样式（与首页保持一致） ====== */
+        footer {
+            background: #1e293b;
+            color: #ccc;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px; 
+        }
+
+        /* ====== 响应式适配 ====== */
+        @media (max-width: 768px) {
+            .nav {
+                display: none; 
+            }
+            .header-avatar {
+                width: 35px;
+                height: 35px;
+            }
+            .logo {
+                font-size: 18px;
+            }
+            .download-item {
+                padding: 15px 16px;
+            }
+            .download-name {
+                font-size: 15px;
+            }
+            .download-name i {
+                font-size: 18px;
+            }
+            .down-btn {
+                padding: 7px 0;
+                width: 95px;
+                font-size: 14px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="header-left">
-            <img class="avatar" src="IMG_20251109_114823.jpg" alt="头像">
-            <div class="header-text">
-                <h1>客户端软件下载</h1>
+    <!-- 顶部导航栏 -->
+    <header>
+        <div class="nav-box">
+            <div class="logo-wrap">
+                <img class="header-avatar" src="IMG_20251109_114823.jpg" alt="头像">
+                <a href="index.html" class="logo">客户端软件下载</a> 
+            </div>
+            <div class="nav">
+                <a href="index.html">首页</a>
+                <a href="https://buguaifurry.github.io/dev" target="_blank">官方网站</a>
+                <a href="xiazaiyingyong.html" class="active">下载应用</a>
+                <a href="lianxiwomen.html">联系我们</a>
             </div>
         </div>
-        <a href="index.html" class="back-index">←返回首页</a>
-    </div>
+    </header>
 
-    <!-- 四项下载区域（左侧系统图标） -->
+    <!-- 下载内容区域 -->
     <div class="download-wrap">
         <div class="download-item">
             <div class="download-name">
@@ -153,5 +197,10 @@
             <a href="#" class="down-btn">立即安装</a>
         </div>
     </div>
+
+    <!-- 底部版权 -->
+    <footer>
+        <p>© 2025 版权所有 | 自制HTML网页</p>
+    </footer>
 </body>
 </html>
