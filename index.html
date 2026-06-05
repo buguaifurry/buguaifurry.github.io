@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>阿布的资源网站</title>
+    <!-- 引入 Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -71,7 +73,7 @@
             justify-content: center;
             color: white;
         }
-        /* 修改：替换video为gif背景图样式 */
+        /* 替换video为gif背景图样式 */
         .banner-bg-gif{
             position: absolute;
             top: 50%;
@@ -128,13 +130,77 @@
         .card h3 {
             color:#2563eb;
             margin-bottom:10px;
+            display:flex;
+            align-items:center;
+            gap:8px;
         }
+        
+        /* 平台优势样式 */
+        .section-title {
+            text-align: center;
+            margin: 30px 0 20px; 
+        }
+        .section-title h2 {
+            font-size: 28px;
+            color: #2563eb;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: #2563eb;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .advantages {
+            background: #2563eb;
+            color: #fff;
+            padding: 30px 0;
+            /* 【核心修改 1】去掉底部外边距，使其紧贴下方元素 */
+            margin-bottom: 0; 
+        }
+        .adv-grid {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            text-align: center;
+            grid-auto-rows: 1fr; 
+        }
+        .adv-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; 
+            padding: 20px;
+        }
+        .adv-item i {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+        .adv-item h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .adv-item p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
         footer {
             background:#1e293b;
             color:#ccc;
             text-align:center;
             padding:20px;
-            margin-top:50px;
+            /* 【核心修改 2】确保顶部没有任何外边距 */
+            margin-top: 0; 
         }
         @media(max-width:768px){
             .container{grid-template-columns:1fr;}
@@ -150,7 +216,6 @@
     <header>
         <div class="nav-box">
             <div class="logo-wrap">
-                <!-- 已修改头像文件名 -->
                 <img class="header-avatar" src="IMG_20251109_114823.jpg" alt="头像">
                 <div class="logo">阿布的资源网站</div>
             </div>
@@ -158,13 +223,13 @@
                 <a href="#" class="active">首页</a>
                 <a href="https://buguaifurry.github.io/dev" target="_blank">官方网站</a>
                 <a href="xiazaiyingyong.html">下载应用</a>
-                <a href="#">联系我们</a>
+                <!-- 【修改处】将 href="#" 替换为 lianxiwomen.html -->
+                <a href="lianxiwomen.html">联系我们</a>
             </div>
         </div>
     </header>
 
     <section class="banner">
-        <!-- 删掉video，替换成gif图片 -->
         <img class="banner-bg-gif" src="gif_260321_212041.gif" alt="背景动图">
         <div class="banner-mask"></div>
         <h1>欢迎访问我的GitHub总库静态网页</h1>
@@ -172,26 +237,52 @@
     </section>
 
     <main class="container">
-        <!-- 模块一整卡跳转，样式完全原样不变 -->
+        <!-- 模块一：技术研发图标 -->
         <div class="card">
             <a class="card-link" href="https://buguaifurry.github.io/dev" target="_blank">
-                <h3>模块一</h3>
+                <h3><i class="fas fa-lightbulb"></i> 模块一</h3>
                 <p>这是第一个内容卡片，可自由修改文字、图片、内容。</p>
             </a>
         </div>
         
+        <!-- 资源下载中心：下载图标 -->
         <div class="card">
             <a class="card-link" href="https://buguaifurry.github.io/download" target="_blank">
-                <h3>资源下载中心</h3>
+                <h3><i class="fas fa-download"></i> 资源下载中心</h3>
                 <p>页面采用grid布局，手机自动变成单列排版。</p>
             </a>
         </div>
         
+        <!-- 模块三：网站搭建图标 -->
         <div class="card">
-            <h3>模块三</h3>
+            <h3><i class="fas fa-globe"></i> 模块三</h3>
             <p>CSS全部内嵌，单个html文件即可运行。</p>
         </div>
     </main>
+
+    <!-- 平台优势区块 -->
+    <section class="advantages">
+        <div class="section-title">
+            <h2 style="color:#fff;">平台优势</h2>
+        </div>
+        <div class="adv-grid">
+            <div class="adv-item">
+                <i class="fas fa-shield-alt"></i>
+                <h3>安全稳定</h3>
+                <p>全站资源安全无毒，长期稳定可用</p>
+            </div>
+            <div class="adv-item">
+                <i class="fas fa-bolt"></i>
+                <h3>高速访问</h3>
+                <p>全球加速，加载快速，体验流畅</p>
+            </div>
+            <div class="adv-item">
+                <i class="fas fa-headset"></i>
+                <h3>持续维护</h3>
+                <p>长期更新内容，保持网站活跃</p>
+            </div>
+        </div>
+    </section>
 
     <footer>
         <p>© 2025 版权所有 | 自制HTML网页</p>
@@ -201,9 +292,9 @@
         const navLinks = document.querySelectorAll('.nav a');
         navLinks.forEach(item=>{
             item.onclick = function(e){
-                // 首页和下载应用不走新标签拦截，官方网站是外链不做active切换
                 let href = this.getAttribute('href');
-                if(href !== 'xiazaiyingyong.html' && href !== 'https://buguaifurry.github.io/dev'){
+                // 排除掉外部链接和需要跳转的页面，防止被JS拦截
+                if(href !== 'xiazaiyingyong.html' && href !== 'https://buguaifurry.github.io/dev' && href !== 'lianxiwomen.html'){
                     e.preventDefault();
                     navLinks.forEach(link=>link.classList.remove('active'));
                     this.classList.add('active');
