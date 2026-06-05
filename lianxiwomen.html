@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我们 - 阿布的资源网站</title>
+    <!-- 引入 Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+        /* 导航栏样式（与主站完全一致） */
+        header {
+            background: #2563eb;
+            padding: 15px 5%;
+        }
+        .nav-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-wrap{
+            display: flex;
+            align-items: center;
+            gap:12px;
+        }
+        .header-avatar{
+            width:42px;
+            height:42px;
+            border-radius:50%;
+            object-fit:cover;
+            border:2px solid #fff;
+        }
+        .logo {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none; /* 去掉链接下划线 */
+        }
+
+        /* 胶囊导航 */
+        .nav {
+            display: flex;
+            gap:10px;
+        }
+        .nav a {
+            background: transparent !important;
+            color: #fff !important;
+            padding:8px 20px !important;
+            border-radius:999px !important;
+            text-decoration: none !important;
+            transition: all 0.3s ease !important;
+        }
+        .nav a.active {
+            background: #ffffff !important;
+            color: #2563eb !important;
+        }
+        .nav a:hover:not(.active) {
+            background:rgba(255,255,255,0.2) !important;
+            color: #fff !important;
+        }
+
+        /* 联系我们内容区样式 */
+        .contact-section {
+            width: 90%;
+            max-width: 1000px;
+            margin: 60px auto 40px; /* 调整了下边距，使其与下方网格更紧凑 */
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .contact-text {
+            flex: 1;
+        }
+        .contact-text h1 {
+            font-size: 32px;
+            color: #2563eb;
+            margin-bottom: 20px;
+        }
+        .contact-text p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        .contact-text p i {
+            color: #2563eb;
+            width: 25px;
+            margin-right: 10px;
+        }
+        .contact-qr {
+            flex-shrink: 0;
+            text-align: center;
+        }
+        .contact-qr img {
+            width: 200px;
+            height: 200px;
+            border-radius: 8px;
+            border: 2px solid #eee;
+            object-fit: cover;
+        }
+        .contact-qr p {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #888;
+        }
+
+        /* ====== 下方正方形二维码网格样式 ====== */
+        .qr-grid-section {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto 60px;
+        }
+        .qr-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 电脑端一行4个 */
+            gap: 20px;
+        }
+        .qr-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .qr-card .qr-img-wrap {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* 核心：强制保持正方形比例 */
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        .qr-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill; /* 强制图片拉伸沾满四角，不留白 */
+            display: block;
+        }
+        .qr-card h4 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .qr-card p {
+            font-size: 13px;
+            color: #888;
+        }
+
+        /* 底部版权 */
+        footer {
+            background:#1e293b;
+            color:#ccc;
+            text-align:center;
+            padding:20px;
+            margin-top: 0;
+        }
+
+        /* 手机端自适应 */
+        @media(max-width:768px){
+            .contact-section {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 20px;
+            }
+            .nav{display:none;} /* 手机端隐藏导航 */
+            .header-avatar{
+                width:35px;
+                height:35px;
+            }
+            /* 手机端二维码网格变为2列 */
+            .qr-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header>
+        <div class="nav-box">
+            <div class="logo-wrap">
+                <img class="header-avatar" src="IMG_20251109_114823.jpg" alt="头像">
+                <!-- 点击Logo可返回首页 -->
+                <a href="index.html" class="logo">联系我们</a> 
+            </div>
+            <div class="nav">
+                <a href="index.html">首页</a>
+                <a href="https://buguaifurry.github.io/dev" target="_blank">官方网站</a>
+                <a href="xiazaiyingyong.html">下载应用</a>
+                <a href="lianxiwomen.html" class="active">联系我们</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 联系我们主体内容 -->
+    <section class="contact-section">
+        <div class="contact-text">
+            <h1>联系我们</h1>
+            <p>感谢您对“阿布的资源网站”的支持与关注！如果您有任何资源需求、合作意向或发现网站问题，欢迎通过以下方式与我取得联系：</p>
+            <p><i class="fas fa-envelope"></i> 邮箱：abu@example.com</p>
+            <p><i class="fas fa-comments"></i> 微信：abu_tech</p>
+            <p><i class="fas fa-clock"></i> 工作时间：周一至周五 9:00 - 18:00</p>
+            <p style="margin-top:20px; color:#888; font-size:14px;">* 扫码添加微信，备注“资源网站”可优先通过验证。</p>
+        </div>
+        <div class="contact-qr">
+            <!-- 替换为测试图片 -->
+            <img src="https://picsum.photos/id/1025/200/200" alt="联系二维码">
+            <p>扫二维码联系官方客服</p>
+        </div>
+    </section>
+
+    <!-- ====== 下方正方形二维码网格区域 ====== -->
+    <section class="qr-grid-section">
+        <div class="qr-grid">
+            <!-- 二维码 1 -->
+            <div class="qr-card">
+                <div class="qr-img-wrap">
+                    <img src="https://picsum.photos/id/10/400/400" alt="微信交流群">
+                </div>
+                <h4>微信交流群</h4>
+                <p>扫码加入讨论</p>
+            </div>
+            <!-- 二维码 2 -->
+            <div class="qr-card">
+                <div class="qr-img-wrap">
+                    <img src="https://picsum.photos/id/15/400/400" alt="公众号">
+                </div>
+                <h4>官方公众号</h4>
+                <p>获取最新资讯</p>
+            </div>
+            <!-- 二维码 3 -->
+            <div class="qr-card">
+                <div class="qr-img-wrap">
+                    <img src="https://picsum.photos/id/20/400/400" alt="QQ群">
+                </div>
+                <h4>QQ交流群</h4>
+                <p>在线答疑互助</p>
+            </div>
+            <!-- 二维码 4 -->
+            <div class="qr-card">
+                <div class="qr-img-wrap">
+                    <img src="https://picsum.photos/id/25/400/400" alt="赞赏支持">
+                </div>
+                <h4>赞赏支持</h4>
+                <p>请作者喝杯咖啡</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部版权 -->
+    <footer>
+        <p>© 2025 版权所有 | 自制HTML网页</p>
+    </footer>
+</body>
+</html>
